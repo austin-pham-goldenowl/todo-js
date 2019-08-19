@@ -16,26 +16,37 @@ document.getElementById('add').addEventListener('click', function () {
 let	value = document.getElementById('things').value;
 
 if (value) {
-	addItemTodo(value);
+	addItem(value);
+}
+})
+
+document.getElementById('things').addEventListener('keydown', function (e) {
+let	value = this.value;
+
+if (e.code === 'Enter' && value) {
+	addItem(value);
+}
+})
+
+function addItem(value) {
+	addItemToDOM(value);
 	document.getElementById('things').value = '';
 
 	data.todo.push(value);
 	dataObjectUpdated();
-
 }
-})
 
 function renderTodoList(){
 	if (!data.todo.length && !data.completed.length) return;
 
 	for (let i =  0; i < data.todo.length; i++) {
 		let value = data.todo[i];
-		addItemTodo(value);
+		addItemToDOM(value);
 	};
 
 	for (let i =  0; i < data.completed.length; i++) {
 		let value = data.completed[i];
-		addItemTodo(value, true);
+		(value, true);
 	};
 };
 
@@ -79,7 +90,7 @@ function completeItem(){
 
 }
 
-function addItemTodo(text, completed){
+function addItemToDOM(text, completed){
 	let list = (completed) ? document.getElementById('completed') : document.getElementById('todo');  
 
 	let item = document.createElement('li');
